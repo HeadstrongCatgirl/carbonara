@@ -52,16 +52,18 @@ class Window(QMainWindow, Ui_MainWindow):
         self.redrawTheThing()
     def changeRange(self):
         if self.radioButton.isChecked():
-            self.spinBox.setMaximum(self.data.shape[0])
+            self.spinBox.setMaximum(self.data.shape[0]-1)
         elif self.radioButton_2.isChecked():
-            self.spinBox.setMaximum(self.data.shape[1])
+            self.spinBox.setMaximum(self.data.shape[1]-1)
         elif self.radioButton_3.isChecked():
-            self.spinBox.setMaximum(self.data.shape[2])
-        self.spinBox.setValue(min(self.spinBox.value(), self.spinBox.minimum()))
+            self.spinBox.setMaximum(self.data.shape[2]-1)
+        self.spinBox.setValue(min(self.spinBox.value(), self.spinBox.maximum()))
     def connectSignalsSlots(self):
         self.pushButton.clicked.connect(self.selectFile)
         self.spinBox.valueChanged.connect(self.redrawTheThing)
         self.radioButton.clicked.connect(self.changeRange)
+        self.radioButton_2.clicked.connect(self.changeRange)
+        self.radioButton_3.clicked.connect(self.changeRange)
 if __name__ == "__main__":
 
     app = QApplication(sys.argv)
